@@ -17,12 +17,13 @@ function isNiceString(text: string): boolean {
         const secondChar = text.charAt(second)
         let charHash = firstChar + secondChar
 
-        if (seen[charHash] !== undefined && first - seen[charHash] >= 2) seenTwice = true
-        if (second < text.length - 1 && isEqual(firstChar, text[second+1])) letterBetween = true
+        if (~seenTwice && seen[charHash] !== undefined && first - seen[charHash] >= 2) seenTwice = true
+        if (~letterBetween && second < text.length - 1 && isEqual(firstChar, text[second+1])) letterBetween = true
         
         if (seen[charHash] === undefined) {
             seen[charHash] = first
         }
+        if (seenTwice && letterBetween) return true
         first++
         second++
     }
